@@ -1,7 +1,7 @@
 # 🎉 Interactive Birthday Card 🎂
 
 An interactive, animated birthday card with confetti, balloons, and a special message! Built with **HTML, CSS, and JavaScript** for a fun, personalized experience.
-
+---
 ## 🌟 Live Demo
 🎈 **[View the Birthday Card](https://responsive-birthday-card.w3spaces.com)**
 
@@ -13,7 +13,7 @@ An interactive, animated birthday card with confetti, balloons, and a special me
 🔊 **Sound Effects** for a lively experience  
 🎨 **Beautiful Gradient Background**  
 💌 **Personalized Birthday Message**
-
+🎂Two different themes
 ---
 
 ## 🚀 Getting Started
@@ -81,12 +81,3 @@ If you need help or have suggestions, don’t hesitate to reach out.
 - **Project Discussion**: [Link to Discussions or Issues]
 
 Happy coding! 🎂✨
-```
-
-### Key Updates:
-- I've added the structure of your project, including **HTML**, **CSS**, and **JavaScript** files.
-- The customization section explains how users can easily change the message, animations, background, and sounds.
-- I’ve included placeholders for a **screenshot** and contact info.
-- You might want to replace the placeholder "Your Email Here" with your contact email.
-
-If you'd like to make any changes or add more details, feel free to let me know!
