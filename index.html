@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Birthday Card</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Lora:wght@400;600&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+         /* Theme Toggle Button */
+        .theme-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #6ca0a1;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 20;
+        }
+        body {
+            font-family: 'Lora', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #a8d8ea, #d0e8d0); /* Soft blues and greens */
+            overflow: hidden;
+        }
+
+        /* Start Button */
+        .start-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #a8d8ea, #d0e8d0); /* Soft blues and greens */
+            z-index: 10;
+        }
+
+        .start-btn {
+            padding: 14px 28px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff; /* White text */
+            background: #6ca0a1; /* Soft teal */
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .start-btn:hover {
+            background: #4a7c7d; /* Darker teal on hover */
+            transform: scale(1.1);
+        }
+
+        /* Card */
+        .card {
+            background: rgba(255, 255, 255, 0.9); /* Light background for card */
+            border-radius: 20px;
+            padding: 2vw; /* Reduced padding for a smaller card */
+            width: 80%; /* Adaptive width */
+            max-width: 400px; /* Maximum width */
+            min-width: 300px; /* Minimum width */
+            text-align: center;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .show-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card pre {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: #4a4a4a; /* Dark gray */
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #555; /* Medium gray */
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Button */
+        .sound-btn {
+            padding: 12px 24px;
+            background-color: #6ca0a1; /* Soft teal */
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .sound-btn:hover {
+            background-color: #4a7c7d; /* Darker teal on hover */
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #4a4a4a; /* Dark gray */
+            font-style: italic;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: #f0e68c; /* Light beige */
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(100vh) translateX(calc(-50vw + 100px)); opacity: 0; }
+        }
+
+        /* Floating Balloons */
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 40px; /* Balloon width */
+            height: 60px; /* Balloon height */
+            border-radius: 50%; /* Round shape */
+            transform-origin: bottom center; /* For animation effects */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Add a shadow for depth */
+            animation: floatUp linear infinite;
+        }
+
+        .thread {
+            position: absolute;
+            width: 2px;
+            height: 100px; /* String length */
+            background: lightgray; /* Light gray for thread */
+            left: 50%;
+            bottom: -100px; /* Adjusted to match balloon height */
+            transform: translateX(-50%); /* Center the string */
+            animation: wave 0.5s ease-in-out infinite; /* Waving effect */
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-110vh); opacity: 0; }
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateX(-50%); }
+            50% { transform: translateX(-45%); } /* Waving effect */
+        }
+    </style>
+</head>
+<body> <a href="index2.html">
+<button class="theme-toggle-btn" >Switch Theme</button></a>
+    <div class="start-container">
+        <button class="start-btn" onclick="startCard()" aria-label="Start the birthday card">Click me!!</button>
+    </div>
+
+    <div class="card" id="birthdayCard" role="dialog" aria-labelledby="birthdayMessage" aria-hidden="true">
+    <pre id="birthdayMessage">🎉 Happy Birthday 🎉</pre>
+    <p>Wishing you a very happy birthday, Shrao! 🎂 May this year bring you closer to all your dreams! 🌈✨</p>
+
+    <button onclick="revealMessage()" class="sound-btn" aria-label="Click for a special message">Click for a Special Message 🎁</button>
+
+    <div id="specialMessage" class="hidden" aria-hidden="true">
+        <p>May you hold all the joy your heart can hold ❤️, all the blessings a life can unfold 🌼, may you get the world's best in everything! 🌟</p>
+    </div>
+
+    <footer>
+        <p>Stay strong 💪 and keep believing in yourself. 🌟</p>
+        <p>Always here for you! 💙🤗</p>
+    </footer>
+</div>
+
+    <!-- Audio for celebration sound -->
+    <audio id="celebrationSound" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+
+    <script>
+        let confettiInterval;
+        let balloonInterval;
+
+        function startCard() {
+            document.querySelector('.start-container').style.display = 'none';
+            document.getElementById('birthdayCard').classList.add('show-card');
+            document.getElementById('birthdayCard').setAttribute('aria-hidden', 'false');
+        }
+
+        function revealMessage() {
+            document.getElementById('specialMessage').classList.add('reveal');
+            document.getElementById('specialMessage').setAttribute('aria-hidden', 'false');
+            startConfetti();
+            startBalloons();
+            document.getElementById('celebrationSound').play(); // Play sound effect
+        }
+
+        function startConfetti() {
+            if (confettiInterval) return; // Prevent multiple intervals
+            confettiInterval = setInterval(() => {
+                let confetti = document.createElement("div");
+                confetti.className = "confetti";
+                confetti.style.left = Math.random() * window.innerWidth + "px";
+                confetti.style.backgroundColor = ["#f0e68c", "#a8d8ea", "#d0e8d0", "#b0e0e6", "#98fb98"][Math.floor(Math.random() * 5)];
+                confetti.style.width = confetti.style.height = Math.random() * 10 + 5 + "px";
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                confetti.style.animationName = "fall";
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }, 100); // Increased interval to reduce performance impact
+        }
+
+        function startBalloons() {
+            if (balloonInterval) return; // Prevent multiple intervals
+            balloonInterval = setInterval(() => {
+                let balloon = document.createElement("div");
+                balloon.className = "balloon";
+                balloon.style.left = Math.random() * window.innerWidth + "px";
+                balloon.style.backgroundColor = getRandomColor(); // Set random color
+                balloon.style.animationDuration = (Math.random() * 5 + 3) + "s";
+
+                let thread = document.createElement("div");
+                thread.className = "thread";
+                balloon.appendChild(thread);
+
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 8000);
+            }, 1000); // Increased interval to reduce performance impact
+        }
+
+        function getRandomColor() {
+            const colors = ['#a8d8ea', '#d0e8d0', '#f0e68c', '#b0e0e6', '#98fb98'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+
+</body>
+</html>
