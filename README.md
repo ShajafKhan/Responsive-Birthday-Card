@@ -4,6 +4,8 @@ An interactive, animated birthday card with confetti, balloons, and a special me
 ---
 ## 🌟 Live Demo
 🎈 **[View the Birthday Card](https://responsive-birthday-card.w3spaces.com)**
+🎈 **[View the Birthday Card](https://shajafbrokhan.github.io/Responsive-Birthday-Card/)**
+)**
 
 ---
 
