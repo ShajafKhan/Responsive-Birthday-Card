@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive and animated birthday card with confetti, balloons, and celebration sound. Enjoy and share your special day!" />
+  <title>Interactive Birthday Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Lora:wght@400;600&family=Dancing+Script:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Lora', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #a8d8ea, #d0e8d0);
+      overflow: hidden;
+      transition: background 3s ease;
+    }
+    
+    /* Theme Toggle Button */
+    .theme-toggle-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #6ca0a1;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 20;
+    }
+    
+    .theme-toggle-btn:hover {
+      background-color: #4a7c7d;
+    }
+    
+    /* Start Button Container */
+    .start-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #a8d8ea, #d0e8d0);
+      z-index: 10;
+      transition: background 3s ease;
+      flex-direction: column;
+    }
+    
+    .start-btn {
+      padding: 14px 28px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+      background: #6ca0a1;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      margin-bottom: 20px;
+    }
+    
+    .start-btn:hover {
+      background: #4a7c7d;
+      transform: scale(1.1);
+    }
+    
+    /* Card */
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 2vw;
+      width: 80%;
+      max-width: 400px;
+      min-width: 300px;
+      text-align: center;
+      position: absolute;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .show-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .card pre {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: #4a4a4a;
+      margin-bottom: 10px;
+      font-weight: 600;
+      user-select: none;
+    }
+    
+    .card p {
+      font-size: 1rem;
+      color: #3a3a3a;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+    
+    .hidden {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Sound Button */
+    .sound-btn {
+      padding: 12px 24px;
+      background-color: #6ca0a1;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      margin-bottom: 10px;
+    }
+    
+    .sound-btn:hover {
+      background-color: #4a7c7d;
+      transform: scale(1.1);
+    }
+    
+    footer {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #4a4a4a;
+      font-style: italic;
+    }
+    
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+    
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(calc(-50vw + 100px));
+        opacity: 0;
+      }
+    }
+    
+    /* Floating Balloons */
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 40px;
+      height: 60px;
+      border-radius: 50%;
+      transform-origin: bottom center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      animation: floatUp linear infinite;
+    }
+    
+    .thread {
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      background: darkgray;
+      left: 50%;
+      bottom: -80px;
+      transform: translateX(-50%);
+      animation: wave 0.5s ease-in-out infinite;
+    }
+    
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes wave {
+      0%, 100% {
+        transform: translateX(-50%);
+      }
+      50% {
+        transform: translateX(-45%);
+      }
+    }
+    
+    /* Theme 2 Styles (Pink Gradient Theme) */
+    .theme-2 {
+      background: linear-gradient(135deg, #ff9a9e, #fbc2eb) !important;
+    }
+    
+    .theme-2 .start-container {
+      background: linear-gradient(135deg, #ff9a9e, #fbc2eb) !important;
+    }
+    
+    .theme-2 .theme-toggle-btn {
+      background-color: #ff6347 !important;
+    }
+    
+    .theme-2 .theme-toggle-btn:hover {
+      background-color: #ff4500 !important;
+    }
+    
+    .theme-2 .start-btn {
+      background: #ff6f61 !important;
+    }
+    
+    .theme-2 .start-btn:hover {
+      background: #ff4500 !important;
+    }
+    
+    .theme-2 .sound-btn {
+      background-color: #ff6f61 !important;
+    }
+    
+    .theme-2 .sound-btn:hover {
+      background-color: #ff4500 !important;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle-btn" onclick="toggleTheme()">Switch Theme</button>
+  
+  <div class="start-container" id="startContainer">
+    <button class="start-btn" onclick="startCard()" aria-label="Start the birthday card">Click me!!</button>
+  </div>
+  
+  <div class="card" id="birthdayCard" role="dialog" aria-labelledby="birthdayMessage" aria-hidden="true">
+    <pre id="birthdayMessage">🎉 Happy Birthday 🎉</pre>
+    <p>Wishing you a very happy birthday, Shrao! 🎂 May this year bring you closer to all your dreams! 🌈✨</p>
+    <button onclick="revealMessage()" class="sound-btn" aria-label="Click for a special message">Click for a Special Message 🎁</button>
+    <div id="specialMessage" class="hidden" aria-hidden="true">
+      <p>May you hold all the joy your heart can hold ❤️, all the blessings a life can unfold 🌼, may you get the world's best in everything! 🌟</p>
+    </div>
+    <footer>
+      <p>Stay strong 💪 and keep believing in yourself. 🌟</p>
+      <p>Always here for you! 💙🤗</p>
+    </footer>
+  </div>
+  
+  <!-- Audio for celebration sound with a fallback message if unsupported -->
+  <audio id="celebrationSound" src="https://www.soundjay.com/button/sounds/button-3.mp3" preload="auto">
+    Your browser does not support the audio element.
+  </audio>
+  
+  <script>
+    let confettiInterval;
+    let balloonInterval;
+    let isThemeOne = true;
+    
+    // Start the card: hide the start container and display the birthday card
+    function startCard() {
+      document.getElementById('startContainer').style.display = 'none';
+      const card = document.getElementById('birthdayCard');
+      card.classList.add('show-card');
+      card.setAttribute('aria-hidden', 'false');
+    }
+    
+    // Reveal message, start confetti, balloons, and play the celebration sound
+    function revealMessage() {
+      document.getElementById('specialMessage').classList.add('reveal');
+      document.getElementById('specialMessage').setAttribute('aria-hidden', 'false');
+      startConfetti();
+      startBalloons();
+      playCelebrationSound();
+    }
+    
+    // Confetti generation
+    function startConfetti() {
+      if (confettiInterval) return;
+      confettiInterval = setInterval(() => {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        const colors = isThemeOne 
+          ? ['#a8d8ea', '#d0e8d0', '#f0e68c', '#b0e0e6', '#98fb98'] 
+          : ['#ff99cc', '#cce5ff', '#b3e5fc', '#cce6cb', '#ffffcc'];
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        const size = Math.random() * 10 + 5;
+        confetti.style.width = size + "px";
+        confetti.style.height = size + "px";
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }, 100);
+    }
+    
+    // Balloon generation with removal on animation end
+    function startBalloons() {
+      if (balloonInterval) return;
+      balloonInterval = setInterval(() => {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = Math.random() * window.innerWidth + "px";
+        balloon.style.backgroundColor = getRandomColor();
+        const durationSeconds = Math.random() * 5 + 3;
+        balloon.style.animationDuration = durationSeconds + "s";
+        balloon.addEventListener("animationend", () => {
+          balloon.remove();
+        });
+        const thread = document.createElement("div");
+        thread.className = "thread";
+        balloon.appendChild(thread);
+        document.body.appendChild(balloon);
+      }, 1000);
+    }
+    
+    // Get a random color based on the current theme
+    function getRandomColor() {
+      if (isThemeOne) {
+        const colors = ['#a8d8ea', '#d0e8d0', '#f0e68c', '#b0e0e6', '#98fb98', '#c6ecc6', '#6495ed', '#ffecd9'];
+        return colors[Math.floor(Math.random() * colors.length)];
+      } else {
+        const colors = ['#FF5733', '#33FF57', '#3357FF', '#F1C40F', '#8E44AD', '#E74C3C', '#3498DB'];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+    }
+    
+    // Toggle the theme between the default and the pink gradient theme
+    function toggleTheme() {
+      document.body.classList.toggle('theme-2');
+      document.querySelector('.start-container').classList.toggle('theme-2');
+      isThemeOne = !isThemeOne;
+    }
+    
+    // Play the celebration sound and handle any playback errors
+    function playCelebrationSound() {
+      const sound = document.getElementById('celebrationSound');
+      sound.currentTime = 0;
+      sound.play().catch(error => {
+        console.error('Audio playback failed:', error);
+      });
+    }
+  </script>
+</body>
+</html>
