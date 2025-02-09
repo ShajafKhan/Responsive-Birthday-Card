@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive and animated birthday card with confetti, balloons, and celebration sound. Enjoy and share your special day!" />
+  <title>Interactive Birthday Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Lora:wght@400;600&family=Dancing+Script:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Lora', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #a8d8ea, #d0e8d0); /* Default Theme */
+      overflow: hidden;
+      transition: background 3s ease;
+    }
+
+    /* Redirect Button (top-left) */
+    .redirect-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: #6ca0a1;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 20;
+      transition: background-color 0.3s ease;
+    }
+
+    .redirect-btn:hover {
+      background-color: #4a7c7d;
+    }
+
+    /* Dropdown Menu Container */
+    .select-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 200px;
+      z-index: 20;
+    }
+
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #6ca0a1;
+      color: white;
+      border-radius: 0px;
+      cursor: pointer;
+      transition: background-color 1.3s ease;
+    }
+
+    .menu-btn:hover {
+      background-color: #4a7c7d;
+    }
+
+    .menu-btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .menu-btn.open i {
+      transform: rotate(180deg);
+    }
+
+    .options {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      background-color: #6ca0a1;
+      border-radius: 0px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+
+    .options.open {
+      max-height: 500px; /* Adjust based on the number of options */
+    }
+
+    .option {
+      padding: 10px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: #4a7c7d;
+    }
+
+    /* Start Button Container */
+    .start-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #a8d8ea, #d0e8d0); /* Default Theme */
+      z-index: 10;
+      transition: background 3s ease;
+    }
+
+    .start-btn {
+      padding: 14px 28px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+      background: #6ca0a1;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .start-btn:hover {
+      background: #4a7c7d;
+      transform: scale(1.1);
+    }
+
+    /* Card */
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 2vw;
+      width: 80%;
+      max-width: 400px;
+      min-width: 300px;
+      text-align: center;
+      position: absolute;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .show-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card pre {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: #4a4a4a;
+      margin-bottom: 10px;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #3a3a3a;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    .hidden {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Sound Button */
+    .sound-btn {
+      padding: 12px 24px;
+      background-color: #6ca0a1;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      margin-bottom: 10px;
+    }
+
+    .sound-btn:hover {
+      background-color: #4a7c7d;
+      transform: scale(1.1);
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #4a4a4a;
+      font-style: italic;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) translateX(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(calc(-50vw + 100px));
+        opacity: 0;
+      }
+    }
+
+    /* Floating Balloons */
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 40px;
+      height: 60px;
+      border-radius: 50%;
+      transform-origin: bottom center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      animation: floatUp linear infinite;
+    }
+
+    .thread {
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      background: darkgray;
+      left: 50%;
+      bottom: -80px;
+      transform: translateX(-50%);
+      animation: wave 0.5s ease-in-out infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    @keyframes wave {
+      0%, 100% {
+        transform: translateX(-50%);
+      }
+      50% {
+        transform: translateX(-45%);
+      }
+    }
+
+    /* Responsive styles for mobile devices */
+    @media (max-width: 600px) {
+      .select-menu {
+        width: 150px;
+      }
+
+      .menu-btn {
+        padding: 8px;
+        font-size: 14px;
+      }
+
+      .option {
+        padding: 8px;
+        font-size: 14px;
+      }
+    }
+
+    /* Theme Styles */
+    .theme-2 {
+      background: linear-gradient(135deg, #ff9a9e, #fbc2eb) !important;
+    }
+
+    .theme-2 .menu-btn, .theme-2 .options {
+      background: #ff6f61 !important;
+    }
+
+    .theme-2 .option:hover {
+      background: #ff4500 !important;
+    }
+
+    .theme-2 .redirect-btn {
+      background: #ff6f61 !important;
+    }
+
+    .theme-2 .redirect-btn:hover {
+      background: #ff4500 !important;
+    }
+
+    .theme-2 .start-container {
+      background: linear-gradient(135deg, #ff9a9e, #fbc2eb) !important;
+    }
+
+    .theme-2 .start-btn {
+      background: #ff6f61 !important;
+    }
+
+    .theme-2 .start-btn:hover {
+      background: #ff4500 !important;
+    }
+
+    .theme-2 .sound-btn {
+      background: #ff6f61 !important;
+    }
+
+    .theme-2 .sound-btn:hover {
+      background: #ff4500 !important;
+    }
+
+    .theme-ocean-breeze {
+      background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
+    }
+
+    .theme-ocean-breeze .menu-btn, .theme-ocean-breeze .options {
+      background: #26a69a !important;
+    }
+
+    .theme-ocean-breeze .option:hover {
+      background: #00796b !important;
+    }
+
+    .theme-ocean-breeze .redirect-btn {
+      background: #26a69a !important;
+    }
+
+    .theme-ocean-breeze .redirect-btn:hover {
+      background: #00796b !important;
+    }
+
+    .theme-ocean-breeze .start-container {
+      background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
+    }
+
+    .theme-ocean-breeze .start-btn {
+      background: #26a69a !important;
+    }
+
+    .theme-ocean-breeze .start-btn:hover {
+      background: #00796b !important;
+    }
+
+    .theme-ocean-breeze .sound-btn {
+      background: #26a69a !important;
+    }
+
+    .theme-ocean-breeze .sound-btn:hover {
+      background: #00796b !important;
+    }
+
+    .theme-spring-blossom {
+      background: linear-gradient(135deg, #f8b195, #f67280) !important;
+    }
+
+    .theme-spring-blossom .menu-btn, .theme-spring-blossom .options {
+      background: #f67280 !important;
+    }
+
+    .theme-spring-blossom .option:hover {
+      background: #c06c84 !important;
+    }
+
+    .theme-spring-blossom .redirect-btn {
+      background: #f67280 !important;
+    }
+
+    .theme-spring-blossom .redirect-btn:hover {
+      background: #c06c84 !important;
+    }
+
+    .theme-spring-blossom .start-container {
+      background: linear-gradient(135deg, #f8b195, #f67280) !important;
+    }
+
+    .theme-spring-blossom .start-btn {
+      background: #f67280 !important;
+    }
+
+    .theme-spring-blossom .start-btn:hover {
+      background: #c06c84 !important;
+    }
+
+    .theme-spring-blossom .sound-btn {
+      background: #f67280 !important;
+    }
+
+    .theme-spring-blossom .sound-btn:hover {
+      background: #c06c84 !important;
+    }
+
+    .theme-tropical-paradise {
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb) !important;
+    }
+
+    .theme-tropical-paradise .menu-btn, .theme-tropical-paradise .options {
+      background: #00bfa5 !important;
+    }
+
+    .theme-tropical-paradise .option:hover {
+      background: #00897b !important;
+    }
+
+    .theme-tropical-paradise .redirect-btn {
+      background: #00bfa5 !important;
+    }
+
+    .theme-tropical-paradise .redirect-btn:hover {
+      background: #00897b !important;
+    }
+
+    .theme-tropical-paradise .start-container {
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb) !important;
+    }
+
+    .theme-tropical-paradise .start-btn {
+      background: #00bfa5 !important;
+    }
+
+    .theme-tropical-paradise .start-btn:hover {
+      background: #00897b !important;
+    }
+
+    .theme-tropical-paradise .sound-btn {
+      background: #00bfa5 !important;
+    }
+
+    .theme-tropical-paradise .sound-btn:hover {
+      background: #00897b !important;
+    }
+
+    .theme-cool-mint {
+      background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
+    }
+
+    .theme-cool-mint .menu-btn, .theme-cool-mint .options {
+      background: #00897b !important;
+    }
+
+    .theme-cool-mint .option:hover {
+      background: #00695c !important;
+    }
+
+    .theme-cool-mint .redirect-btn {
+      background: #00897b !important;
+    }
+
+    .theme-cool-mint .redirect-btn:hover {
+      background: #00695c !important;
+    }
+
+    .theme-cool-mint .start-container {
+      background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
+    }
+
+    .theme-cool-mint .start-btn {
+      background: #00897b !important;
+    }
+
+    .theme-cool-mint .start-btn:hover {
+      background: #00695c !important;
+    }
+
+    .theme-cool-mint .sound-btn {
+      background: #00897b !important;
+    }
+
+    .theme-cool-mint .sound-btn:hover {
+      background: #00695c !important;
+    }
+
+    .theme-lavender-fields {
+      background: linear-gradient(135deg, #d4a5a5, #f9d9d9) !important;
+    }
+
+    .theme-lavender-fields .menu-btn, .theme-lavender-fields .options {
+      background: #957dad !important;
+    }
+
+    .theme-lavender-fields .option:hover {
+      background: #6d4c71 !important;
+    }
+
+    .theme-lavender-fields .redirect-btn {
+      background: #957dad !important;
+    }
+
+    .theme-lavender-fields .redirect-btn:hover {
+      background: #6d4c71 !important;
+    }
+
+    .theme-lavender-fields .start-container {
+      background: linear-gradient(135deg, #d4a5a5, #f9d9d9) !important;
+    }
+
+    .theme-lavender-fields .start-btn {
+      background: #957dad !important;
+    }
+
+    .theme-lavender-fields .start-btn:hover {
+      background: #6d4c71 !important;
+    }
+
+    .theme-lavender-fields .sound-btn {
+      background: #957dad !important;
+    }
+
+    .theme-lavender-fields .sound-btn:hover {
+      background: #6d4c71 !important;
+    }
+  </style>
+</head>
+<body>
+  <button class="redirect-btn" onclick="redirectToIndex1()">Go to Index1</button>
+  <div class="select-menu">
+    <div class="menu-btn" onclick="toggleDropdown()">
+      <span class="btn-text">Select Theme</span>
+      <i class="fas fa-caret-down"></i>
+    </div>
+
+    <ul class="options">
+      <li class="option" onclick="changeTheme('default')">
+        <i class="fas fa-circle" style="color: #a8d8ea"></i>
+        <span class="option-text">Light Theme</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-2')">
+        <i class="fas fa-circle" style="color: #ff9a9e"></i>
+        <span class="option-text">Pink Gradient Theme</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-ocean-breeze')">
+        <i class="fas fa-circle" style="color: #a8e6cf"></i>
+        <span class="option-text">Ocean Breeze Theme</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-spring-blossom')">
+        <i class="fas fa-circle" style="color: #f8b195"></i>
+        <span class="option-text">Spring Blossom Theme</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-tropical-paradise')">
+        <i class="fas fa-circle" style="color: #a1c4fd"></i>
+        <span class="option-text">Tropical Paradise Theme</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-cool-mint')">
+        <i class="fas fa-circle" style="color: #a8e6cf"></i>
+        <span class="option-text">Cool Mint Theme</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-lavender-fields')">
+        <i class="fas fa-circle" style="color: #d4a5a5"></i>
+        <span class="option-text">Lavender Fields Theme</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="start-container" id="startContainer">
+    <button class="start-btn" onclick="startCard()" aria-label="Start the birthday card">Click me!!</button>
+  </div>
+
+<div class="card" id="birthdayCard" role="dialog" aria-labelledby="birthdayMessage" aria-hidden="true">
+    <pre id="birthdayMessage">🎉 Happy Birthday 🎉</pre>
+    <p>Wishing you a very happy birthday! 🎂 May this year bring you closer to all your dreams! 🌈✨</p>
+    <button onclick="revealMessage()" class="sound-btn" aria-label="Click for a special message">Click for a Special Message 🎁</button>
+    <div id="specialMessage" class="hidden" aria-hidden="true">
+      <p>May you hold all the joy your heart can hold ❤️, all the blessings a life can unfold 🌼, may you get the world's best in everything! 🌟</p>
+    </div>
+    <footer>
+      <p>Stay strong 💪 and keep believing in yourself. 🌟</p>
+      <p>Always here for you! 💙🤗</p>
+    </footer>
+  </div>
+
+  <!-- Audio for celebration sound with a fallback message if unsupported -->
+  <audio id="celebrationSound" src="https://www.soundjay.com/button/sounds/button-3.mp3" preload="auto">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    let confettiInterval;
+    let balloonInterval;
+
+    // Function to redirect the user to index1.html
+    function redirectToIndex1() {
+      window.location.href = "index1.html";
+    }
+
+    // Toggle dropdown menu
+    function toggleDropdown() {
+      const menuBtn = document.querySelector('.menu-btn');
+      const options = document.querySelector('.options');
+      menuBtn.classList.toggle('open');
+      options.classList.toggle('open');
+    }
+
+    // Start the card: hide the start container and display the birthday card
+    function startCard() {
+      document.getElementById('startContainer').style.display = 'none';
+      const card = document.getElementById('birthdayCard');
+      card.classList.add('show-card');
+      card.setAttribute('aria-hidden', 'false');
+    }
+
+    // Reveal message, start confetti, balloons, and play the celebration sound
+    function revealMessage() {
+      document.getElementById('specialMessage').classList.add('reveal');
+      document.getElementById('specialMessage').setAttribute('aria-hidden', 'false');
+      startConfetti();
+      startBalloons();
+      playCelebrationSound();
+    }
+
+    // Confetti generation
+    function startConfetti() {
+      if (confettiInterval) return;
+      confettiInterval = setInterval(() => {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        const colors = ['#a8e6cf', '#dcedc1', '#b2dfdb', '#80cbc4', '#4db6ac', '#ff9a9e', '#fbc2eb', '#ffc3a0', '#ffb6b9', '#fae3d9', '#00bfa5', '#00897b', '#957dad', '#6d4c71', '#f8b195', '#f67280', '#c06c84'];
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        const size = Math.random() * 10 + 5;
+        confetti.style.width = size + "px";
+        confetti.style.height = size + "px";
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }, 100);
+    }
+
+    // Balloon generation with removal on animation end
+    function startBalloons() {
+      if (balloonInterval) return;
+      balloonInterval = setInterval(() => {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = Math.random() * window.innerWidth + "px";
+        balloon.style.backgroundColor = getRandomColor();
+        const durationSeconds = Math.random() * 5 + 3;
+        balloon.style.animationDuration = durationSeconds + "s";
+        balloon.addEventListener("animationend", () => {
+          balloon.remove();
+        });
+        const thread = document.createElement("div");
+        thread.className = "thread";
+        balloon.appendChild(thread);
+        document.body.appendChild(balloon);
+      }, 1000);
+    }
+
+    // Get a random color based on the current theme
+    function getRandomColor() {
+      const colors = ['#a8e6cf', '#dcedc1', '#b2dfdb', '#80cbc4', '#4db6ac', '#ff9a9e', '#fbc2eb', '#ffc3a0', '#ffb6b9', '#fae3d9', '#00bfa5', '#00897b', '#957dad', '#6d4c71', '#f8b195', '#f67280', '#c06c84'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Change theme based on the selected value
+    function changeTheme(theme) {
+      document.body.className = theme;
+      document.querySelector('.start-container').className = 'start-container ' + theme;
+      document.querySelector('.redirect-btn').className = 'redirect-btn ' + theme;
+      document.querySelector('.menu-btn').className = 'menu-btn ' + theme;
+      document.querySelector('.options').className = 'options ' + theme;
+      document.querySelector('.start-btn').className = 'start-btn ' + theme;
+      document.querySelector('.sound-btn').className = 'sound-btn ' + theme;
+    }
+
+    // Play the celebration sound and handle any playback errors
+    function playCelebrationSound() {
+      const sound = document.getElementById('celebrationSound');
+      sound.currentTime = 0;
+      sound.play().catch(error => {
+        console.error('Audio playback failed:', error);
+      });
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+</body>
+</html>
