@@ -585,7 +585,7 @@
   </div>
 
   <!-- Audio for celebration sound with a fallback message if unsupported -->
-  <audio id="celebrationSound" src="https://www.soundhelix.com/exam/mp3/SoundHelix-Song-1.mp3" preload="auto">
+  <audio id="celebrationSound" src="hbd_Shravani.mp3" preload="auto">
     Your browser does not support the audio element.
   </audio>
 
@@ -690,12 +690,15 @@
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LN3DEXQ56Q"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+window.onload = function() {
+            const audio = document.getElementById("celebrationSound");
 
-  gtag('config', 'G-LN3DEXQ56Q');
+            audio.onloadedmetadata = function() {
+                audio.currentTime = 8; // Always start from 8 seconds
+                audio.play().catch(error => console.log("Autoplay might be blocked by the browser", error));
+            };
+        };
 </script>
-  <script src="hbd_Shravani.mp3"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
 </body>
 </html>
