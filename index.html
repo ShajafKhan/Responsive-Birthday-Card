@@ -592,7 +592,7 @@
 
     <div class="card" id="birthdayCard" role="dialog" aria-labelledby="birthdayMessage" aria-hidden="true">
         <pre id="birthdayMessage">🎉 Happy Birthday! 🎉</pre>
-        <p>Wishing you a very <b>Happy Birthday Shrao!</b> 🎂 May this year bring you closer to all your dreams! 🌈✨</p>
+        <p>Wishing you a very <b>Happy Birthday <span id="name">Shajaf</span>!</b> 🎂 May this year bring you closer to all your dreams! 🌈✨</p>
         <button onclick="revealMessage()" class="sound-btn" aria-label="Click for a special message">Click for a Special Message 🎁</button>
         <div id="specialMessage" class="hidden" aria-hidden="true">
             <p>May you hold all the joy your heart can hold 💞, all the blessings a life can unfold 🌼, may you get the world's best in everything!🌟</p>
@@ -613,7 +613,8 @@
         const birthdayCard = document.getElementById('birthdayCard');
         const specialMessage = document.getElementById('specialMessage');
         const celebrationSound = document.getElementById('celebrationSound');
-        
+        const nameElement = document.getElementById('name');
+
         // Function to redirect the user to index1.html
         function redirectToIndex1() {
             window.location.href = "index3.html";
@@ -636,7 +637,7 @@
             // Apply theme to key elements
             const elementsToUpdate = ['.start-container', '.redirect-btn', '.menu-btn', '.options', '.start-btn', '.sound-btn'];
             elementsToUpdate.forEach(selector => {
-        document.querySelector(selector).className = selector.replace('.', '') + ' ' + theme;
+                document.querySelector(selector).className = selector.replace('.', '') + ' ' + theme;
             });
         
             // Save theme preference to localStorage
@@ -647,6 +648,11 @@
         window.onload = function () {
             const savedTheme = localStorage.getItem("selectedTheme");
             if (savedTheme) changeTheme(savedTheme);
+
+            // Set the name based on URL parameter or default
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get('n') || 'Shajaf';
+            nameElement.textContent = name;
         };
         
         // Start the card: Hide start container & display the birthday card
@@ -687,16 +693,16 @@
         
             // Remove confetti after it falls
             setTimeout(() => {
-        confetti.remove();
-        confettiArray = confettiArray.filter(item => item !== confetti);
+                confetti.remove();
+                confettiArray = confettiArray.filter(item => item !== confetti);
             }, 5000);
         }
         
         // Function to continuously generate confetti
         function startConfetti() {
             function generateConfetti() {
-        createConfettiPiece();
-        requestAnimationFrame(generateConfetti);
+                createConfettiPiece();
+                requestAnimationFrame(generateConfetti);
             }
             generateConfetti(); // Start animation loop
         }
@@ -706,9 +712,9 @@
         function startBalloons() {
             let activeBalloons = 0;
             let balloonInterval = setInterval(() => {
-        if (activeBalloons >= balloonCount) return;
-        createBalloon();
-        activeBalloons++;
+                if (activeBalloons >= balloonCount) return;
+                createBalloon();
+                activeBalloons++;
             }, 1500); // Increased interval to reduce CPU load
         }
         
@@ -720,7 +726,7 @@
             balloon.style.animationDuration = (Math.random() * 5 + 3) + "s";
         
             balloon.addEventListener("animationend", () => {
-        balloon.remove();
+                balloon.remove();
             });
         
             const thread = document.createElement("div");
@@ -743,7 +749,7 @@
         function playCelebrationSound() {
             celebrationSound.currentTime = 8; // Start from 8 seconds
             celebrationSound.play().catch(error => {
-        console.error('Audio playback failed:', error);
+                console.error('Audio playback failed:', error);
             });
         }
         
