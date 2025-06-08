@@ -653,6 +653,98 @@
     }
 
     // Note: Add startConfetti, startBalloons, playCelebrationSound functions separately.
+        // Confetti generation (Optimized)
+let confettiCount = 50; // Max confetti on screen at once
+let confettiArray = [];
+
+// Function to create a single confetti piece
+function createConfettiPiece() {
+    if (confettiArray.length >= confettiCount) return; // Prevent too many elements
+
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * window.innerWidth + "px";
+    confetti.style.backgroundColor = getRandomColor();
+    const size = Math.random() * 10 + 5;
+    confetti.style.width = size + "px";
+    confetti.style.height = size + "px";
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(confetti);
+    confettiArray.push(confetti);
+
+    // Remove confetti after it falls
+    setTimeout(() => {
+        confetti.remove();
+        confettiArray = confettiArray.filter(item => item !== confetti);
+    }, 5000);
+}
+
+// Function to continuously generate confetti
+function startConfetti() {
+    function generateConfetti() {
+        createConfettiPiece();
+        requestAnimationFrame(generateConfetti);
+    }
+    generateConfetti(); // Start animation loop
+}
+
+// Balloon generation (Optimized)
+let balloonCount = 10; // Limit balloons on screen
+let activeBalloons = 0;
+let balloonInterval;
+
+function startBalloons() {
+    balloonInterval = setInterval(() => {
+        if (activeBalloons < balloonCount) {
+            createBalloon();
+            activeBalloons++;
+        }
+    }, 1500); // Interval between balloon creation
+}
+
+function createBalloon() {
+    const balloon = document.createElement("div");
+    balloon.className = "balloon";
+    balloon.style.left = Math.random() * window.innerWidth + "px";
+    balloon.style.backgroundColor = getRandomColor();
+    balloon.style.animationDuration = (Math.random() * 5 + 3) + "s";
+
+    const thread = document.createElement("div");
+    thread.className = "thread";
+    balloon.appendChild(thread);
+
+    balloon.addEventListener("animationend", () => {
+        balloon.remove();
+        activeBalloons--;
+    });
+
+    document.body.appendChild(balloon);
+}
+
+// Get a random color from the predefined palette
+function getRandomColor() {
+    const colors = ['#a8e6cf', '#dcedc1', '#b2dfdb', '#80cbc4', '#4db6ac',
+                    '#ff9a9e', '#fbc2eb', '#ffc3a0', '#ffb6b9', '#fae3d9',
+                    '#00bfa5', '#00897b', '#957dad', '#6d4c71', '#f8b195',
+                    '#f67280', '#c06c84'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Play the celebration sound from 8s and handle autoplay restrictions
+function playCelebrationSound() {
+    celebrationSound.currentTime = 8; // Start from 8 seconds
+    celebrationSound.play().catch(error => {
+        console.error('Audio playback failed:', error);
+    });
+}
+
+// Optimize for mobile & desktop
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+if (isMobile) {
+    confettiCount = 30; // Reduce confetti for mobile
+    balloonCount = 5;   // Reduce balloon count
+        }
 </script>
 </body>
 </html>
