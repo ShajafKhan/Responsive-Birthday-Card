@@ -576,80 +576,83 @@
     <audio id="celebrationSound" src="https://github.com/ShajafKhan/Responsive-Birthday-Card/blob/08eb193724f84cb6c551fb228f0087433e62f4bf/hbd_Shravani.mp3" preload="auto">
         Your browser does not support the audio element.
     </audio>
+    
     <script>
-        // Cache DOM elements
-        const startContainer = document.getElementById('startContainer');
-        const birthdayCard = document.getElementById('birthdayCard');
-        const specialMessage = document.getElementById('specialMessage');
-        const celebrationSound = document.getElementById('celebrationSound');
-        const nameElement = document.getElementById('name');
+    // Step 1: Store params and clean URL + reload only once
+    function storeParamsToLocalStorageAndReloadOnce() {
+        const params = new URLSearchParams(window.location.search);
+        const hasParams = params.has('n');
 
-        // Function to redirect the user to index1.html
-        function redirectToIndex1() {
-            window.location.href = "index3.html";
+        if (hasParams && !sessionStorage.getItem('birthdayReloaded')) {
+            if (params.has('n')) localStorage.setItem('n', params.get('n'));
+
+            sessionStorage.setItem('birthdayReloaded', 'true');
+            window.location.href = window.location.pathname; // reload without params
         }
+    }
 
-        // Toggle dropdown menu visibility
-        function toggleDropdown() {
-            const menuBtn = document.querySelector('.menu-btn');
-            const options = document.querySelector('.options');
+    storeParamsToLocalStorageAndReloadOnce();
 
-            // Toggle the open state for smooth transition
-            const isOpen = menuBtn.classList.toggle('open');
-            options.classList.toggle('open', isOpen);
-        }
+    // Step 2: Cache DOM elements
+    const startContainer = document.getElementById('startContainer');
+    const birthdayCard = document.getElementById('birthdayCard');
+    const specialMessage = document.getElementById('specialMessage');
+    const celebrationSound = document.getElementById('celebrationSound');
+    const nameElement = document.getElementById('name');
 
-        // Change theme dynamically
-        function changeTheme(theme) {
-            document.body.className = theme; // Apply theme to body
+    // Step 3: Redirect function
+    function redirectToIndex1() {
+        window.location.href = "index3.html";
+    }
 
-            // Save theme preference to localStorage
-            localStorage.setItem("selectedTheme", theme);
-        }
+    // Step 4: Toggle dropdown menu
+    function toggleDropdown() {
+        const menuBtn = document.querySelector('.menu-btn');
+        const options = document.querySelector('.options');
+        const isOpen = menuBtn.classList.toggle('open');
+        options.classList.toggle('open', isOpen);
+    }
 
-        // Load saved theme and name on page load
-        window.onload = function () {
-            // Check if localStorage is available
-            if (typeof localStorage !== "undefined") {
-                // Load theme
-                const savedTheme = localStorage.getItem("selectedTheme");
-                if (savedTheme) changeTheme(savedTheme);
+    // Step 5: Theme switching
+    function changeTheme(theme) {
+        document.body.className = theme;
+        localStorage.setItem("selectedTheme", theme);
+    }
 
-                // Load name from localStorage
-                const storedName = localStorage.getItem("n");
-                console.log("Stored Name:", storedName); // Debugging
-                if (storedName && nameElement) {
-                    nameElement.textContent = storedName;
-                } else if (nameElement) {
-                    nameElement.textContent = "Friend"; // Default name fallback
-                } else {
-                    console.error("Name element not found in the DOM.");
-                }
-            } else {
-                console.error("localStorage is not supported in this browser.");
+    // Step 6: Load name and theme
+    window.onload = function () {
+        if (typeof localStorage !== "undefined") {
+            const savedTheme = localStorage.getItem("selectedTheme");
+            if (savedTheme) changeTheme(savedTheme);
+
+            const storedName = localStorage.getItem("n");
+            if (storedName && nameElement) {
+                nameElement.textContent = storedName;
+            } else if (nameElement) {
+                nameElement.textContent = "Friend";
             }
-        };
-
-        // Start the card: Hide start container & display the birthday card
-        function startCard() {
-            startContainer.style.display = 'none';
-            birthdayCard.classList.add('show-card');
-            birthdayCard.setAttribute('aria-hidden', 'false');
+        } else {
+            console.error("localStorage is not supported.");
         }
+    };
 
-        // Reveal message, start confetti, balloons, and play the celebration sound
-        function revealMessage() {
-            specialMessage.classList.add('reveal');
-            specialMessage.setAttribute('aria-hidden', 'false');
-            startConfetti();
-            startBalloons();
-            playCelebrationSound();
-        }
+    // Step 7: Start card reveal
+    function startCard() {
+        startContainer.style.display = 'none';
+        birthdayCard.classList.add('show-card');
+        birthdayCard.setAttribute('aria-hidden', 'false');
+    }
 
-        // Confetti generation, balloon animations, and sound omitted for brevity
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LN3DEXQ56Q"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+    // Step 8: Reveal message + celebration
+    function revealMessage() {
+        specialMessage.classList.add('reveal');
+        specialMessage.setAttribute('aria-hidden', 'false');
+        startConfetti();
+        startBalloons();
+        playCelebrationSound();
+    }
+
+    // Note: Add startConfetti, startBalloons, playCelebrationSound functions separately.
+</script>
 </body>
 </html>
