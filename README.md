@@ -2,6 +2,8 @@
 
 An interactive, animated, and fully responsive digital birthday card. Celebrate birthdays virtually with confetti, balloons, personalized messages, celebration sound, and multiple color themes. Share a unique experience by simply sending a link!
 
+[Click to generate custom url](https://shajafkhan.github.io/Url-Generator/Pages/index.hhtml)
+
 ## ✨ Features
 
 - **🎂 Personalized Greeting:** Displays the recipient's name from the URL parameter.
