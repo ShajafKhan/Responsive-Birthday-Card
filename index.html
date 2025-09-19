@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Interactive and animated birthday card with confetti, balloons, and celebration effects." />
+  <title>Interactive Birthday Card</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pacifico&family=Lora:wght@400;600&family=Dancing+Script:wght@500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+  <button class="redirect-btn" onclick="redirectToIndex()" aria-label="View previous version">
+    <i class="fas fa-arrow-left"></i> Previous version
+  </button>
+
+  <div class="select-menu">
+    <div class="menu-btn" onclick="toggleDropdown()" role="button" aria-haspopup="true" aria-expanded="false"
+      tabindex="0">
+      <span class="btn-text">Select Theme</span>
+      <i class="fas fa-caret-down" aria-hidden="true"></i>
+    </div>
+
+    <ul class="options" role="menu">
+      <li class="option" onclick="changeTheme('default')" role="menuitem" tabindex="-1">
+        <i class="fas fa-circle" style="color: #a8d8ea" aria-hidden="true"></i>
+        <span class="option-text">Light Blue</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-pink-gradient')" role="menuitem" tabindex="-1">
+        <i class="fas fa-circle" style="color: #ff9a9e" aria-hidden="true"></i>
+        <span class="option-text">Pink Gradient</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-ocean-breeze')" role="menuitem" tabindex="-1">
+        <i class="fas fa-circle" style="color: #a8e6cf" aria-hidden="true"></i>
+        <span class="option-text">Ocean Breeze</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-spring-blossom')" role="menuitem" tabindex="-1">
+        <i class="fas fa-circle" style="color: #f8b195" aria-hidden="true"></i>
+        <span class="option-text">Spring Blossom</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-tropical-paradise')" role="menuitem" tabindex="-1">
+        <i class="fas fa-circle" style="color: #a1c4fd" aria-hidden="true"></i>
+        <span class="option-text">Tropical Paradise</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-cool-mint')" role="menuitem" tabindex="-1">
+        <i class="fas fa-circle" style="color: #a8e6cf" aria-hidden="true"></i>
+        <span class="option-text">Cool Mint</span>
+      </li>
+      <li class="option" onclick="changeTheme('theme-lavender-fields')" role="menuitem" tabindex="-1">
+        <i class="fas fa-circle" style="color: #d4a5a5" aria-hidden="true"></i>
+        <span class="option-text">Lavender Fields</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="start-container" id="startContainer">
+    <button class="start-btn" onclick="startCard()" aria-label="Start the birthday celebration">
+      Click me!!
+    </button>
+  </div>
+
+  <div class="card" id="birthdayCard" role="main" aria-labelledby="birthdayMessage" aria-hidden="true">
+    <pre id="birthdayMessage" role="heading" aria-level="1">🎉 Happy Birthday! 🎉</pre>
+    <p>
+      Wishing you a very <strong>Happy Birthday <span id="name">Friend</span>!</strong> 🎂
+      May this year bring you closer to all your dreams! 🌈✨
+    </p>
+    <button onclick="revealMessage()" class="sound-btn" aria-label="Click for a special message">
+      Click for a Special Message 🎁
+    </button>
+    <div id="specialMessage" class="hidden" aria-hidden="true">
+      <p>
+        May you hold all the joy your heart can hold 💞,
+        all the blessings a life can unfold 🌼,
+        may you get the world's best in everything! 🌟
+      </p>
+    </div>
+    <footer>
+      <p>Stay strong and keep believing in yourself!🌟</p>
+      <p>Always here for you! 💙🤗</p>
+    </footer>
+  </div>
+
+
+  <audio id="celebrationSound" preload="none">
+    <source src="celebration.mp3" type="audio/mpeg">
+    <source src="celebration.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
