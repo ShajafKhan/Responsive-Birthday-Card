@@ -22,7 +22,7 @@ Here’s a preview of the interactive birthday card:
 
 1. **Open the Card:**  
    Visit the page with a URL like:  
-   `https://yourdomain.com/index.html?n=John`
+   `https://shajafkhan.github.io/Responsive-Birthday-Card/Pages/index.html?n=John`
 
 2. **Start the Celebration:**  
    Click the **"Click me!!"** button to reveal the birthday card.
@@ -39,14 +39,8 @@ Here’s a preview of the interactive birthday card:
 ## 🌟 Live Demo
 🎈 **[View the Birthday Card](https://responsive-birthday-card.w3spaces.com) From W3spaces**
 
-🎈 **[View the Birthday Card](https://shajafkhan.github.io/Responsive-Birthday-Card/
+🎈 **[View the Birthday Card](https://shajafkhan.github.io/Responsive-Birthday-Card/Pages/index.html
 ) From GitHub**
-
-## 🌟 Example URL
-
-```
-https://shajafkhan.github.io/Responsive-Birthday-Card?n=Shajaf 
-```
 
 ## 🎨 Usage & Customization
 
@@ -57,14 +51,14 @@ https://shajafkhan.github.io/Responsive-Birthday-Card?n=Shajaf
 
 ## 🚀 Deployment
 
-1. Switch to the `Pages` branch.
+1. Go to Pages folder.
 2. Deploy `index.html` (and optionally `styles.css`) to your static hosting (GitHub Pages, Netlify, Vercel, etc.).
 3. Share your custom birthday card links!
 
 ## 🔗 Related Projects
 
-- [⏳ Countdown](https://github.com/ShajafKhan/Countdown): For creating a countdown to a special date.
-- [🔗 Url-Generator](https://github.com/ShajafKhan/Url-Generator): For generating personalized countdown and card URLs.
+- [⏳ Countdown](https://github.com/ShajafKhan/Countdown/Pages/index.html): For creating a countdown to a special date.
+- [🔗 Url-Generator](https://github.com/ShajafKhan/Url-Generator)/Pages/index.html: For generating personalized countdown and card URLs.
 
 ## 📝 License
 
