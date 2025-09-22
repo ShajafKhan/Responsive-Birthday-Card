@@ -54,39 +54,40 @@ body.loaded {
     pointer-events: none;
 }
 
+.redirect-btn,
+.menu-btn,
+.start-btn,
+.sound-btn {
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: white;
+    background-color: #6ca0a1;
+}
+
+.redirect-btn:hover,
+.redirect-btn:focus,
+.menu-btn:hover,
+.menu-btn:focus,
+.start-btn:hover,
+.start-btn:focus,
+.sound-btn:hover,
+.sound-btn:focus,
+.option:hover,
+.option:focus {
+    background-color: #4a7c7d;
+    transform: translateY(-2px);
+}
+
 .redirect-btn {
     position: fixed;
     top: 20px;
     left: 20px;
-    background-color: #6ca0a1;
-    color: white;
     padding: 12px 16px;
-    border: none;
     border-radius: 8px;
-    cursor: pointer;
     z-index: 1000;
     font-size: 14px;
     min-height: 44px;
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s ease;
-}
-
-.redirect-btn:hover,
-.redirect-btn:focus {
-    background-color: #4a7c7d;
-    transform: translateY(-2px);
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-}
-
-@media (max-width: 480px) {
-    .redirect-btn {
-        font-size: 12px;
-        padding: 10px 12px;
-        top: 10px;
-        left: 10px;
-        min-height: 48px;
-        min-width: 48px;
-    }
 }
 
 .select-menu {
@@ -102,21 +103,10 @@ body.loaded {
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    background-color: #6ca0a1;
-    color: white;
+    font-family: Arial, Helvetica, sans-serif;
     border-radius: 8px;
-    cursor: pointer;
     font-size: 14px;
     min-height: 44px;
-    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s ease;
-}
-
-.menu-btn:hover,
-.menu-btn:focus {
-    background-color: #4a7c7d;
-    transform: translateY(-2px);
-    outline: 2px solid #fff;
-    outline-offset: 2px;
 }
 
 .menu-btn i {
@@ -152,45 +142,7 @@ body.loaded {
     align-items: center;
     gap: 10px;
     min-height: 44px;
-}
-
-.option:hover,
-.option:focus {
-    background-color: #4a7c7d;
-    outline: 2px solid #fff;
-    outline-offset: -2px;
-}
-
-@media (max-width: 768px) {
-    .select-menu {
-        width: 200px;
-        top: 10px;
-        right: 10px;
-    }
-
-    .menu-btn,
-    .option {
-        padding: 10px 12px;
-        font-size: 13px;
-        min-height: 44px;
-    }
-}
-
-@media (max-width: 480px) {
-    .select-menu {
-        width: 150px;
-    }
-
-    .menu-btn,
-    .option {
-        padding: 8px 10px;
-        font-size: 12px;
-        min-height: 48px;
-    }
-
-    .option-text {
-        display: none;
-    }
+    background-color: #6ca0a1;
 }
 
 .start-container {
@@ -216,41 +168,16 @@ body.loaded {
     padding: 16px 32px;
     font-size: 1.6rem;
     font-weight: bold;
-    color: #fff;
-    background: #6ca0a1;
-    border: none;
     border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 20px;
     min-height: 48px;
-    box-shadow: 0 4px 15px rgba(108, 160, 161, 0.4);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
-.start-btn:hover,
-.start-btn:focus {
-    background: #4a7c7d;
+.start-btn:hover{
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(108, 160, 161, 0.6);
-    outline: 3px solid #fff;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.6);
     outline-offset: 3px;
-}
-
-@media (max-width: 768px) {
-    .start-btn {
-        font-size: 1.4rem;
-        padding: 14px 28px;
-        min-height: 48px;
-    }
-}
-
-@media (max-width: 480px) {
-    .start-btn {
-        font-size: 1.2rem;
-        padding: 12px 24px;
-        min-height: 48px;
-        min-width: 48px;
-    }
 }
 
 .card {
@@ -296,13 +223,8 @@ body.loaded {
 
 .sound-btn {
     padding: 12px 24px;
-    background-color: #6ca0a1;
-    color: white;
     font-size: 1rem;
-    border: none;
     border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 1rem;
     min-height: 48px;
     box-shadow: 0 3px 10px rgba(108, 160, 161, 0.3);
@@ -310,11 +232,7 @@ body.loaded {
 
 .sound-btn:hover,
 .sound-btn:focus {
-    background-color: #4a7c7d;
-    transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(108, 160, 161, 0.4);
-    outline: 2px solid #fff;
-    outline-offset: 2px;
 }
 
 .hidden {
@@ -338,58 +256,6 @@ footer {
     color: #4a4a4a;
     font-style: italic;
     line-height: 1.4;
-}
-
-@media (max-width: 768px) {
-    .card {
-        padding: 1.5rem;
-        width: 95%;
-    }
-
-    .card pre {
-        font-size: 1.8rem;
-    }
-
-    .card p {
-        font-size: 1rem;
-    }
-
-    .sound-btn {
-        min-height: 48px;
-    }
-}
-
-@media (max-width: 480px) {
-    .card {
-        padding: 1.2rem;
-        border-radius: 15px;
-        max-height: 90vh;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .card pre {
-        font-size: 1.6rem;
-    }
-
-    .card p {
-        font-size: 0.9rem;
-    }
-
-    .sound-btn {
-        font-size: 0.9rem;
-        padding: 10px 20px;
-        min-height: 48px;
-        min-width: 48px;
-    }
-}
-
-@media screen and (max-height: 600px) {
-    .card {
-        max-height: 90vh;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
 }
 
 .confetti {
@@ -452,12 +318,78 @@ footer {
     background: linear-gradient(135deg, #ff9a9e, #fbc2eb) !important;
 }
 
+.theme-ocean-breeze {
+    background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
+}
+
+.theme-spring-blossom {
+    background: linear-gradient(135deg, #f8b195, #f67280) !important;
+}
+
+.theme-tropical-paradise {
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb) !important;
+}
+
+.theme-cool-mint {
+    background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
+}
+
+.theme-lavender-fields {
+    background: linear-gradient(135deg, #d4a5a5, #f9d9d9) !important;
+}
+
 body.theme-pink-gradient .menu-btn,
 body.theme-pink-gradient .options,
+body.theme-pink-gradient .option,
 body.theme-pink-gradient .redirect-btn,
 body.theme-pink-gradient .start-btn,
 body.theme-pink-gradient .sound-btn {
     background-color: #ff6f61 !important;
+}
+
+body.theme-ocean-breeze .menu-btn,
+body.theme-ocean-breeze .options,
+body.theme-ocean-breeze .option,
+body.theme-ocean-breeze .redirect-btn,
+body.theme-ocean-breeze .start-btn,
+body.theme-ocean-breeze .sound-btn {
+    background-color: #26a69a !important;
+}
+
+body.theme-spring-blossom .menu-btn,
+body.theme-spring-blossom .options,
+body.theme-spring-blossom .option,
+body.theme-spring-blossom .redirect-btn,
+body.theme-spring-blossom .start-btn,
+body.theme-spring-blossom .sound-btn {
+    background-color: #f67280 !important;
+}
+
+body.theme-tropical-paradise .menu-btn,
+body.theme-tropical-paradise .options,
+body.theme-tropical-paradise .option,
+body.theme-tropical-paradise .redirect-btn,
+body.theme-tropical-paradise .start-btn,
+body.theme-tropical-paradise .sound-btn {
+    background-color: #00bfa5 !important;
+}
+
+body.theme-cool-mint .menu-btn,
+body.theme-cool-mint .options,
+body.theme-cool-mint .option,
+body.theme-cool-mint .redirect-btn,
+body.theme-cool-mint .start-btn,
+body.theme-cool-mint .sound-btn {
+    background-color: #00897b !important;
+}
+
+body.theme-lavender-fields .menu-btn,
+body.theme-lavender-fields .options,
+body.theme-lavender-fields .option,
+body.theme-lavender-fields .redirect-btn,
+body.theme-lavender-fields .start-btn,
+body.theme-lavender-fields .sound-btn {
+    background-color: #957dad !important;
 }
 
 body.theme-pink-gradient .menu-btn:hover,
@@ -473,22 +405,6 @@ body.theme-pink-gradient .sound-btn:focus {
     background-color: #ff4500 !important;
 }
 
-body.theme-pink-gradient .start-container {
-    background: linear-gradient(135deg, #ff9a9e, #fbc2eb) !important;
-}
-
-.theme-ocean-breeze {
-    background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
-}
-
-body.theme-ocean-breeze .menu-btn,
-body.theme-ocean-breeze .options,
-body.theme-ocean-breeze .redirect-btn,
-body.theme-ocean-breeze .start-btn,
-body.theme-ocean-breeze .sound-btn {
-    background-color: #26a69a !important;
-}
-
 body.theme-ocean-breeze .menu-btn:hover,
 body.theme-ocean-breeze .option:hover,
 body.theme-ocean-breeze .redirect-btn:hover,
@@ -500,22 +416,6 @@ body.theme-ocean-breeze .redirect-btn:focus,
 body.theme-ocean-breeze .start-btn:focus,
 body.theme-ocean-breeze .sound-btn:focus {
     background-color: #00796b !important;
-}
-
-body.theme-ocean-breeze .start-container {
-    background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
-}
-
-.theme-spring-blossom {
-    background: linear-gradient(135deg, #f8b195, #f67280) !important;
-}
-
-body.theme-spring-blossom .menu-btn,
-body.theme-spring-blossom .options,
-body.theme-spring-blossom .redirect-btn,
-body.theme-spring-blossom .start-btn,
-body.theme-spring-blossom .sound-btn {
-    background-color: #f67280 !important;
 }
 
 body.theme-spring-blossom .menu-btn:hover,
@@ -531,22 +431,6 @@ body.theme-spring-blossom .sound-btn:focus {
     background-color: #c06c84 !important;
 }
 
-body.theme-spring-blossom .start-container {
-    background: linear-gradient(135deg, #f8b195, #f67280) !important;
-}
-
-.theme-tropical-paradise {
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb) !important;
-}
-
-body.theme-tropical-paradise .menu-btn,
-body.theme-tropical-paradise .options,
-body.theme-tropical-paradise .redirect-btn,
-body.theme-tropical-paradise .start-btn,
-body.theme-tropical-paradise .sound-btn {
-    background-color: #00bfa5 !important;
-}
-
 body.theme-tropical-paradise .menu-btn:hover,
 body.theme-tropical-paradise .option:hover,
 body.theme-tropical-paradise .redirect-btn:hover,
@@ -557,22 +441,6 @@ body.theme-tropical-paradise .option:focus,
 body.theme-tropical-paradise .redirect-btn:focus,
 body.theme-tropical-paradise .start-btn:focus,
 body.theme-tropical-paradise .sound-btn:focus {
-    background-color: #00897b !important;
-}
-
-body.theme-tropical-paradise .start-container {
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb) !important;
-}
-
-.theme-cool-mint {
-    background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
-}
-
-body.theme-cool-mint .menu-btn,
-body.theme-cool-mint .options,
-body.theme-cool-mint .redirect-btn,
-body.theme-cool-mint .start-btn,
-body.theme-cool-mint .sound-btn {
     background-color: #00897b !important;
 }
 
@@ -589,22 +457,6 @@ body.theme-cool-mint .sound-btn:focus {
     background-color: #00695c !important;
 }
 
-body.theme-cool-mint .start-container {
-    background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
-}
-
-.theme-lavender-fields {
-    background: linear-gradient(135deg, #d4a5a5, #f9d9d9) !important;
-}
-
-body.theme-lavender-fields .menu-btn,
-body.theme-lavender-fields .options,
-body.theme-lavender-fields .redirect-btn,
-body.theme-lavender-fields .start-btn,
-body.theme-lavender-fields .sound-btn {
-    background-color: #957dad !important;
-}
-
 body.theme-lavender-fields .menu-btn:hover,
 body.theme-lavender-fields .option:hover,
 body.theme-lavender-fields .redirect-btn:hover,
@@ -618,6 +470,26 @@ body.theme-lavender-fields .sound-btn:focus {
     background-color: #6d4c71 !important;
 }
 
+body.theme-pink-gradient .start-container {
+    background: linear-gradient(135deg, #ff9a9e, #fbc2eb) !important;
+}
+
+body.theme-ocean-breeze .start-container {
+    background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
+}
+
+body.theme-spring-blossom .start-container {
+    background: linear-gradient(135deg, #f8b195, #f67280) !important;
+}
+
+body.theme-tropical-paradise .start-container {
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb) !important;
+}
+
+body.theme-cool-mint .start-container {
+    background: linear-gradient(135deg, #a8e6cf, #dcedc1) !important;
+}
+
 body.theme-lavender-fields .start-container {
     background: linear-gradient(135deg, #d4a5a5, #f9d9d9) !important;
 }
@@ -625,6 +497,119 @@ body.theme-lavender-fields .start-container {
 .loading {
     opacity: 0.7;
     pointer-events: none;
+}
+
+@media (max-width: 480px) {
+    .redirect-btn {
+        font-size: 12px;
+        padding: 10px 12px;
+        top: 10px;
+        left: 10px;
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .select-menu {
+        width: 150px;
+    }
+
+    .menu-btn,
+    .option {
+        padding: 8px 10px;
+        font-size: 12px;
+        min-height: 48px;
+    }
+
+    .option-text {
+        display: none;
+    }
+
+    .start-btn {
+        font-size: 1.2rem;
+        padding: 12px 24px;
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .card {
+        padding: 1.2rem;
+        border-radius: 15px;
+        max-height: 90vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .card pre {
+        font-size: 1.6rem;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+    }
+
+    .sound-btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .confetti {
+        animation-duration: 1.5s !important;
+    }
+
+    .balloon {
+        animation-duration: 3s !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .select-menu {
+        width: 170px;
+        top: 20px;
+        right: 10px;
+    }
+
+    .menu-btn,
+    .option {
+        padding: 10px 12px;
+        font-size: 13px;
+        min-height: 44px;
+    }
+
+    .start-btn {
+        font-size: 1.4rem;
+        padding: 14px 28px;
+        min-height: 48px;
+    }
+
+    .card {
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    .card pre {
+        font-size: 1.8rem;
+    }
+
+    .card p {
+        font-size: 1rem;
+    }
+
+    .sound-btn {
+        min-height: 48px;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    .card {
+        max-height: 90vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -664,29 +649,4 @@ body.theme-lavender-fields .start-container {
     .sound-btn {
         border: 2px solid #000;
     }
-}
-
-@media (max-width: 480px) {
-    .confetti {
-        animation-duration: 1.5s !important;
-    }
-
-    .balloon {
-        animation-duration: 3s !important;
-    }
-
-    .card {
-        transform: translateZ(0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-    }
-}
-
-.menu-btn:focus,
-.option:focus,
-.start-btn:focus,
-.sound-btn:focus,
-.redirect-btn:focus {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
 }
